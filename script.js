@@ -47,7 +47,7 @@ new Vue({
 		// sert à récupérer les données de l'API airtable
 		async getData() {
 			// L'url de l'API
-			const url = `https://api.airtable.com/v0/${DB_ID}/${DB_TABLE}?api_key=${AIRTABLE_KEY}`;
+			const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_KEY}/${process.env.DB_ID}?api_key=${process.env.DB_TABLE}`;
 
 			// On interroge l'URL et on récupère le texte JSON
 			let response = await fetch(url);
