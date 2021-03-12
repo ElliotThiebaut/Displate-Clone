@@ -59,6 +59,10 @@ new Vue({
 		removeFromCart(product) {
 			let index = this.cart.indexOf(product);
 			this.cart.splice(index, 1);
+			this.cartTotal = 0
+			this.cart.forEach((cartItem) => {
+				this.cartTotal += cartItem.price * cartItem.quantity
+			})
 		},
 
 		checkout() {
