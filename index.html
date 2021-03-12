@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+
+    <!-- utile pour le responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Mon super site e-commerce</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- lien vers le style CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="https://js.stripe.com/v3/" defer></script>
+    <script src="secrets.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Header général à toute l'app -->
+        <header>
+            <div class="logo" @click="page = 'list'">Displate - Metal Posters</div>
+
+            <img class="cart-icon" src="assets/icons/cart.png" @click="page = 'cart'"></img>
+        </header>
+
+
+        <!-- Page home ou sont listé tout les produits -->
+        <section class="page" v-if="page == 'list'">
+            <h2>Les Posters</h2>
+
+            <div class="product-list">
+                <!-- Boucle qui affiche les produits dans l'array all_products -->
+                <div v-for="product in all_products" class="product">
+                    <h3>{{product.fields.title}}</h3>
+                    <img @click="goToProduct(product)" v-bind:src="product.fields.image[0].url" alt="product image" class="img-product">
+                    <p class="product-price">{{product.fields.price}} €</p>
+                    <!-- CTA qui permet d'accéder à la page detail du produit -->
+                    <div class="cta-product" @click="goToProduct(product)">
+                        <p>Voir plus</p>
+                        <img src="assets/icons/arrow.png" alt="see product" height="auto" width="30px">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Page détail des produits -->
+        <section class="page page-detail" v-if="page == 'detail'">
+
+            <!-- Header de la page -->
+            <div class="header-detail">
+                <img src="assets/icons/arrow_back.png" @click="page = 'list'" height="auto" width="50px"></img>
+                <h2>Poster <span class="blue">{{ currentProduct.fields.title }}</span></h2>
+            </div>
+
+
+            <h3 class="detail-categorie">Catégorie : <span class="blue">{{currentProduct.fields.collection}}</span></h3>
+            <img v-bind:src="currentProduct.fields.image[0].url" alt="product image" class="img-product">
+            <div class="detail-info">
+                <p class="product-price detail-price">{{currentProduct.fields.price}} € - </p>
+                <p v-if="currentProduct.fields.hasStock" class="green"> En stock</p>
+                <p v-else class="red"> Rupture de stock</p>
+            </div>
+            <p>Designed by {{currentProduct.fields.designer}}</p>
+            <!-- Boutton pour ajouter au panier -->
+            <button v-if="currentProduct.fields.hasStock" class="cta-detail" @click="addToCart(currentProduct)">Ajouter au panier</button>
+            <button v-else class="cta-detail-disabeled" disabled>Ajouter au panier</button>
+        </section>
+
+
+        <!-- Page panier -->
+        <section class="page page-cart" v-if="page == 'cart'">
+            <div class="header-detail">
+                <img src="assets/icons/arrow_back.png" @click="page = 'list'" height="auto" width="50px"></img>
+                <h2>Mon Panier</span></h2>
+            </div>
+
+            <div class="cart-list">
+                <!-- Boucle qui affiche les produits dans le panier -->
+                <div v-for="product in cart" class="cart-item">
+                    <img v-bind:src="product.image" alt="product image" class="cart-img">
+                    <div class="item-detail">
+                        <h3>{{product.title}}</h3>
+                        <p>{{product.price}} €</p>
+                    </div>
+                    <!-- Boutton qui permet de suppriemr un élément du panier -->
+                    <img @click="removeFromCart(product)" src="assets/icons/cross.png" alt="" width="auto" height="30px" class="cross-icon">
+                </div>
+                <button class="validate-order">Valider la commande</button>
+            </div>
+
+        </section>
+    </div>
+</body>
+
+</html>
