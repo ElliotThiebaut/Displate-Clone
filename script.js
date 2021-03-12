@@ -11,7 +11,9 @@ new Vue({
 		currentProduct: {},
 
 		// Array qui stock les produits dans le panier de l'utilisateur
-		cart: []
+		cart: [],
+
+		cartTotal: 0
 	},
 	mounted() {
 		this.getData();
@@ -25,13 +27,32 @@ new Vue({
 
 		// sert à ajouter un produit au panier
 		addToCart(product) {
-			const newCartItem = {
-				"id": product.id,
-				"title": product.fields.title,
-				"price": product.fields.price,
-				"image": product.fields.image[0].url
+
+			let positionNewItem = this.cart.map(function(e) { return e.id; }).indexOf(product.id);
+			
+			if (positionNewItem >= 0) {
+				this.cart[positionNewItem].quantity ++;
+				this.cartTotal = 0
+				this.cart.forEach((cartItem) => {
+					this.cartTotal += cartItem.price * cartItem.quantity
+				})
+			} else {
+				const newCartItem = {
+					"id": product.id,
+					"title": product.fields.title,
+					"price": product.fields.price,
+					"image": product.fields.image[0].url,
+					"quantity": 1
+				}
+				this.cart.push(newCartItem);
+				this.cartTotal = 0
+				this.cart.forEach((cartItem) => {
+					this.cartTotal += cartItem.price * cartItem.quantity
+				})
 			}
-			this.cart.push(newCartItem);
+
+
+			
 		},
 
 		// sert à supprimer un produit du panier

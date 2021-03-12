@@ -81,7 +81,7 @@
         <section class="page page-cart" v-if="page == 'cart'">
             <div class="header-detail">
                 <img src="assets/icons/arrow_back.png" @click="page = 'list'" height="auto" width="50px"></img>
-                <h2>Mon Panier</span></h2>
+                <h2>Mon Panier ({{cartTotal}} €)</span></h2>
             </div>
 
             <div class="cart-list">
@@ -92,8 +92,9 @@
                         <h3>{{product.title}}</h3>
                         <p>{{product.price}} €</p>
                     </div>
+                    <p class="ml-5">{{product.quantity}}</p>
                     <!-- Boutton qui permet de suppriemr un élément du panier -->
-                    <img @click="removeFromCart(product)" src="assets/icons/cross.png" alt="" width="auto" height="30px" class="cross-icon">
+                    <img @click="removeFromCart(product)" src="assets/icons/cross.png" alt="" width="auto" height="30px">
                 </div>
                 <button class="validate-order">Valider la commande</button>
             </div>
