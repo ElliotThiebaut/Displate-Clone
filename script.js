@@ -93,9 +93,9 @@ new Vue({
 				lineItems: finalCart,
 				mode: 'payment',
 				// la page de succès
-				successUrl: 'http://127.0.0.1:5500/index.html?returnCheckout=sucess',
+				successUrl: 'https://elliot-displate.netlify.app?returnCheckout=sucess',
 				// la page d'erreur
-				cancelUrl: 'http://127.0.0.1:5500/index.html?returnCheckout=fail',
+				cancelUrl: 'https://elliot-displate.netlify.app?returnCheckout=fail',
 			  }).then(function (result) {
 				console.error(result.error.message);
 			  });
