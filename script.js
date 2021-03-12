@@ -28,7 +28,7 @@ new Vue({
 		// sert à ajouter un produit au panier
 		addToCart(product) {
 
-			let positionNewItem = this.cart.map(function(e) { return e.id; }).indexOf(product.id);
+			let positionNewItem = this.cart.map((e) => { return e.id }).indexOf(product.id);
 			
 			if (positionNewItem >= 0) {
 				this.cart[positionNewItem].quantity ++;
