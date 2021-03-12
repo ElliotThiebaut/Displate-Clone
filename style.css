@@ -179,6 +179,10 @@ header {
     height: auto;
 }
 
+.cart-list{
+    width: 100%;
+}
+
 .ml-5{
     
     border: 1px solid white;
