@@ -1,3 +1,6 @@
+var stripe = Stripe(STRIPE_KEY);
+
+
 new Vue({
 	el: '#app',
 	data: {
