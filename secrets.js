@@ -1,0 +1,4 @@
+// Clé d'API
+AIRTABLE_KEY = 'keyt80nD7m8zxMqDk';
+DB_ID = 'appTTG1mVAGb6iCL2';
+DB_TABLE = 'DISPLATE';
