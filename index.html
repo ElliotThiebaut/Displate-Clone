@@ -31,6 +31,17 @@
             <img class="cart-icon" src="assets/icons/cart.png" @click="page = 'cart'"></img>
         </header>
 
+        <section v-if="returnSucess" class="modal-checkout" @click="closeModal()" id="modal">
+            <div v-if="returnSucess == 'sucess'" class="modal">
+                <p>Order complete</p>
+                <img class="modal-icon" src="assets/icons/checkmark.png"></img>
+            </div>
+            <div v-else="returnSucess == 'fail'" class="modal">
+                <p>Error during checkout</p>
+                <img class="modal-icon" src="assets/icons/close.png"></img>
+            </div>
+        </section>
+
 
         <!-- Page home ou sont listé tout les produits -->
         <section class="page" v-if="page == 'list'">
@@ -96,7 +107,7 @@
                     <!-- Boutton qui permet de suppriemr un élément du panier -->
                     <img @click="removeFromCart(product)" src="assets/icons/cross.png" alt="" width="auto" height="30px">
                 </div>
-                <button class="validate-order">Valider la commande</button>
+                <button class="validate-order" @click="checkout()">Valider la commande</button>
             </div>
 
         </section>
