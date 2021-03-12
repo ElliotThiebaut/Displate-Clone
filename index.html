@@ -45,7 +45,7 @@
 
         <!-- Page home ou sont listé tout les produits -->
         <section class="page" v-if="page == 'list'">
-            <h2>Les Posters</h2>
+            <h2>The Posters</h2>
 
             <div class="product-list">
                 <!-- Boucle qui affiche les produits dans l'array all_products -->
@@ -55,7 +55,7 @@
                     <p class="product-price">{{product.fields.price}} €</p>
                     <!-- CTA qui permet d'accéder à la page detail du produit -->
                     <div class="cta-product" @click="goToProduct(product)">
-                        <p>Voir plus</p>
+                        <p>See more</p>
                         <img src="assets/icons/arrow.png" alt="see product" height="auto" width="30px">
                     </div>
                 </div>
@@ -74,17 +74,17 @@
             </div>
 
 
-            <h3 class="detail-categorie">Catégorie : <span class="blue">{{currentProduct.fields.collection}}</span></h3>
+            <h3 class="detail-categorie">Category : <span class="blue">{{currentProduct.fields.collection}}</span></h3>
             <img v-bind:src="currentProduct.fields.image[0].url" alt="product image" class="img-product">
             <div class="detail-info">
                 <p class="product-price detail-price">{{currentProduct.fields.price}} € - </p>
                 <p v-if="currentProduct.fields.hasStock" class="green"> En stock</p>
-                <p v-else class="red"> Rupture de stock</p>
+                <p v-else class="red"> Out of stock</p>
             </div>
             <p>Designed by {{currentProduct.fields.designer}}</p>
             <!-- Boutton pour ajouter au panier -->
-            <button v-if="currentProduct.fields.hasStock" class="cta-detail" @click="addToCart(currentProduct)">Ajouter au panier</button>
-            <button v-else class="cta-detail-disabeled" disabled>Ajouter au panier</button>
+            <button v-if="currentProduct.fields.hasStock" class="cta-detail" @click="addToCart(currentProduct)">Add to cart</button>
+            <button v-else class="cta-detail-disabeled" disabled>Add to cart</button>
         </section>
 
 
@@ -92,7 +92,7 @@
         <section class="page page-cart" v-if="page == 'cart'">
             <div class="header-detail">
                 <img src="assets/icons/arrow_back.png" @click="page = 'list'" height="auto" width="50px"></img>
-                <h2>Mon Panier ({{cartTotal}} €)</span></h2>
+                <h2>My Cart ({{cartTotal}} €)</span></h2>
             </div>
 
             <div class="cart-list">
@@ -107,7 +107,7 @@
                     <!-- Boutton qui permet de suppriemr un élément du panier -->
                     <img @click="removeFromCart(product)" src="assets/icons/cross.png" alt="" width="auto" height="30px">
                 </div>
-                <button class="validate-order" @click="checkout()">Valider la commande</button>
+                <button class="validate-order" @click="checkout()">Checkout</button>
             </div>
 
         </section>
